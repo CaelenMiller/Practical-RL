@@ -3,9 +3,9 @@ from ray.rllib.utils.annotations import override
 from torch import nn
 import torch
 
-#TODO - implement custom loss function that prioritizes nonspatial features. 
-
+'''This is an example custom model for use with RLlib. Look at [TrainGridWorld.py] for example usage'''
 class CustomModel(TorchModelV2, nn.Module):
+    #The inputs need to be exactly this or RLlib will die. 
     def __init__(self, obs_space, action_space, num_outputs, model_config, name, **kwargs):
         TorchModelV2.__init__(self, obs_space, action_space, num_outputs, model_config, name)
         nn.Module.__init__(self)
