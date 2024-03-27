@@ -8,14 +8,14 @@ class CustomEnv(gym.Env):
     def __init__(self):
         super(CustomEnv, self).__init__()
         # Define action and observation space
-        # They must be gym.spaces objects
-        # Example when using discrete actions:
+        # They must be gym.spaces objects. There are a variety of spaces for different environment structures. 
+        # Example when using discrete actions: action is one int of value 0 to N. Good if one action can be taken at a time
         N = 4
-        self.action_space = spaces.Discrete(N) # N is the number of actions
+        self.action_space = spaces.Discrete(N)
 
         # Example for using image as input (observation space):
         # Note that "Box" is used for continous spaces
-        HEIGHT, WIDTH, CHANNELS = 100, 100, 1
+        HEIGHT, WIDTH, CHANNELS = 36, 36, 1
         self.observation_space = spaces.Box(low=0, high=255, shape=(HEIGHT, WIDTH, CHANNELS), dtype=np.uint8)
 
         # Initialize state or observation
