@@ -14,8 +14,8 @@ algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)
     .resources(num_gpus=0)
-    .environment(env='CartPole-v1')
-    .build()
+    .environment(env='CartPole-v1', render_env=True)
+    .build() #Must call this one last, and it must be called in order to run the algo.
 )
 
 # I would recommend using a custom directory, otherwise the model will be difficult to track down

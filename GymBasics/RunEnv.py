@@ -1,6 +1,9 @@
 import gymnasium as gym
+from EnvironmentGridworld import CustomGridWorldEnv
 
 env = gym.make('CartPole-v1', render_mode="human")
+#env = CustomGridWorldEnv()
+
 observation = env.reset()
 
 for _ in range(1000):

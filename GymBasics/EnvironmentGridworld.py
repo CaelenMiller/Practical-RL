@@ -15,7 +15,7 @@ class CustomGridWorldEnv(gym.Env):
         self.spec.max_episode_steps = 50
         self.spec.id = "Grid-v0"
 
-        self.actions = [(0,-1), (0,1), (-1,0), (1,0), (0,0)] #NSWE
+        self.actions = [(1, 0), (-1, 0), (0, -1), (0, 1), (0,0)] #NSWE
 
         self.gridWorld = GridWorld()
 
@@ -46,6 +46,7 @@ class CustomGridWorldEnv(gym.Env):
         return state, {}
 
     def step(self, action):
+
         self.time+=1
 
         if self.time >= self.spec.max_episode_steps:
@@ -64,6 +65,8 @@ class CustomGridWorldEnv(gym.Env):
         # Optional: return additional info
         info = {}
 
+        #self.render()
+
         return self.get_observation(), reward, done, truncated, info
     
     def apply_action(self, action): #takes in an action tuple from self.actions
@@ -72,7 +75,7 @@ class CustomGridWorldEnv(gym.Env):
         next_x = max(0, min(self.agent_position[0] + action[0], self.gridWorld.shape[0]-1))
         next_y = max(0, min(self.agent_position[1] + action[1], self.gridWorld.shape[1]-1))
 
-        if self.gridWorld.grid[next_x][next_y] != 1: #Not in a wall
+        if self.gridWorld.grid[next_y][next_x] != 1: #Not in a wall
             self.agent_position[0] = next_x
             self.agent_position[1] = next_y
 
@@ -84,14 +87,14 @@ class CustomGridWorldEnv(gym.Env):
 
     def calculate_reward(self):
         prev_dist = self.dist
-        self.dist = self.gridWorld.find_distance_to_goal(self.agent_position[0], self.agent_position[1])
+        self.dist = self.gridWorld.find_distance_to_goal(self.agent_position[1], self.agent_position[0])
         if self.dist == 0:
             return 5
         else: 
             return prev_dist - self.dist
 
     def is_done(self):
-        if self.gridWorld.grid[self.agent_position[0]][self.agent_position[1]] == 2:
+        if self.gridWorld.grid[self.agent_position[1]][self.agent_position[0]] == 2:
             return True
         else:
             return False
@@ -135,7 +138,7 @@ class GridWorld:
             return -1  # Return -1 or some indication that the start is invalid
 
         # Directions: up, down, left, right
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
         visited = set()  # Keep track of visited nodes
         queue = deque([(start_x, start_y, 0)])  # (x, y, distance)
 
