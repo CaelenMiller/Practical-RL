@@ -6,13 +6,13 @@ from GymBasics.EnvironmentGridworld import CustomGridWorldEnv
 # Initialize Ray
 ray.init()
 
-tune.register_env("Maze-v0", CustomGridWorldEnv)
+tune.register_env("Grid-v0", CustomGridWorldEnv)
 
 agent = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)
     .resources(num_gpus=1)
-    .environment(env='Maze-v0')
+    .environment(env='Grid-v0')
     .build()
 )
 
@@ -23,7 +23,7 @@ checkpoint_path = "./Checkpoints/GridworldModel"
 # Load the trained model from checkpoint
 agent.restore(checkpoint_path)
 
-#
+#initialize an environment
 env = CustomGridWorldEnv()
 
 # Run the model on the environment

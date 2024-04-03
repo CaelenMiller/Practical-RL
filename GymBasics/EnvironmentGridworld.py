@@ -65,7 +65,7 @@ class CustomGridWorldEnv(gym.Env):
         # Optional: return additional info
         info = {}
 
-        #self.render()
+        self.render()
 
         return self.get_observation(), reward, done, truncated, info
     

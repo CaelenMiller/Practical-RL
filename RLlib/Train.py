@@ -1,6 +1,7 @@
 from ray.rllib.algorithms.ppo import PPOConfig
 import matplotlib.pyplot as plt
 
+# A simple function for data visualization
 def plot(name, x_lab, y_lab, data):
     plt.figure(figsize=(10, 6))
     plt.plot(data)
