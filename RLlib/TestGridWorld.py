@@ -1,7 +1,7 @@
 import ray
 from ray.rllib.algorithms.ppo import PPOConfig
 from ray import tune
-from GymBasics.EnvironmentGridworld import CustomGridWorldEnv
+from EnvironmentGridworld import CustomGridWorldEnv
 
 # Initialize Ray
 ray.init()
@@ -10,7 +10,7 @@ tune.register_env("Grid-v0", CustomGridWorldEnv)
 
 agent = (
     PPOConfig()
-    .rollouts(num_rollout_workers=1)
+    .rollouts(num_rollout_workers=0)
     .resources(num_gpus=1)
     .environment(env='Grid-v0')
     .build()

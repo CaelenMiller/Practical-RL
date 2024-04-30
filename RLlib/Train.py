@@ -44,6 +44,6 @@ for i in range(1, 21):
         print(f"Checkpoint saved in directory {checkpoint_dir}")
     print("\n")
 
-plot("Mean Rewards", "Mean Rewards", "Training Episode", mean_rewards)
+plot("Mean Rewards", "Training Episode", "Mean Rewards", mean_rewards)
 
 

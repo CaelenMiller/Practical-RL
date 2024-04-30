@@ -8,7 +8,7 @@ import gymnasium as gym #for creating an instance of cartpole
 # Initialize Ray
 ray.init()
 
-agent = (
+algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)
     .resources(num_gpus=0)
@@ -21,7 +21,7 @@ agent = (
 checkpoint_path = "./Checkpoints/Model"
 
 # Load the trained model from checkpoint
-agent.restore(checkpoint_path)
+algo.restore(checkpoint_path)
 
 #initialize an environment
 env = gym.make('CartPole-v1')
@@ -32,7 +32,7 @@ keep_going = "y"
 while keep_going == "y":
     obs, _ = env.reset()
     while not done:
-        action = agent.compute_single_action(obs)
+        action = algo.compute_single_action(obs)
         obs, reward, done, truncated, info = env.step(action)
         env.render()
     keep_going = input("do another run? [y,n]")

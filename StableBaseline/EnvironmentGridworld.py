@@ -65,8 +65,6 @@ class CustomGridWorldEnv(gym.Env):
         # Optional: return additional info
         info = {}
 
-        #self.render() #Hacky way of making sure the env is rendered
-
         return self.get_observation(), reward, done, truncated, info
     
     def apply_action(self, action): #takes in an action tuple from self.actions
@@ -101,7 +99,7 @@ class CustomGridWorldEnv(gym.Env):
 
     def get_observation(self):
         observation = np.concatenate((np.copy(self.gridWorld.grid).flatten(), np.array(self.agent_position, dtype=float)))
-        
+
         return observation
 
 

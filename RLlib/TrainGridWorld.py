@@ -3,8 +3,8 @@ from ray.rllib.models import ModelCatalog
 from ray import tune
 
 
-from GymBasics.EnvironmentGridworld import CustomGridWorldEnv
-from RLlib.CustomModel import CustomModel
+from EnvironmentGridworld import CustomGridWorldEnv
+from CustomModel import CustomModel
 
 #Register your custom model
 ModelCatalog.register_custom_model("my_model", CustomModel)
