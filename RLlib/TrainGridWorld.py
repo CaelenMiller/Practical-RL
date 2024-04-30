@@ -2,9 +2,10 @@ from ray.rllib.algorithms.ppo import PPOConfig #Use Config objects rather than t
 from ray.rllib.models import ModelCatalog
 from ray import tune
 
-
 from EnvironmentGridworld import CustomGridWorldEnv
 from CustomModel import CustomModel
+
+'''This file demonstrates how to use a custom model and custom environment together with RLlib'''
 
 #Register your custom model
 ModelCatalog.register_custom_model("my_model", CustomModel)

@@ -3,6 +3,9 @@ from ray.rllib.algorithms.ppo import PPOConfig
 from ray import tune
 from EnvironmentGridworld import CustomGridWorldEnv
 
+'''This file demonstrates how to test a trained model meant to function on the custom gridworld environment.
+     Note that this is non-trivial, and this process could be improved'''
+
 # Initialize Ray
 ray.init()
 

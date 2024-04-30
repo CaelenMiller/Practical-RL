@@ -1,5 +1,9 @@
 from ray.rllib.algorithms.ppo import PPOConfig
 
+
+'''This file demonstrates the most simple usage of RLlib for training on a default environment. 
+    See [Train.py] for additional functions that are useful for the training process.'''
+
 algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)

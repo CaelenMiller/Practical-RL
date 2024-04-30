@@ -1,6 +1,9 @@
 from ray.rllib.algorithms.ppo import PPOConfig
 import matplotlib.pyplot as plt
 
+'''This file demonstrates various functions that assist in the training process, including printing results of iterations,
+    saving the model, and plotting the results of training. For a simpler implementation, see [TrainSimple.py] '''
+
 # A simple function for data visualization
 def plot(name, x_lab, y_lab, data):
     plt.figure(figsize=(10, 6))

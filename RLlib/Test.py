@@ -3,7 +3,8 @@ from ray.rllib.algorithms.ppo import PPOConfig
 from ray import tune
 import gymnasium as gym #for creating an instance of cartpole
 
-#TODO 
+'''This file demonstrates how to test a trained model meant to function on a default environment.
+     Note that this is non-trivial, and this process could be improved'''
 
 # Initialize Ray
 ray.init()
