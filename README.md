@@ -15,18 +15,22 @@ This folder contains the basics of creating and running an environment, includin
 RLlib is the "industry standard" for large scale training and deployment of reinforcement learning models. This framework is extremely customizable, allowing almost any aspect of the reinforcement learning process to be modified according to your needs (in theory). Unfortunately, this framework is notoriously hard to work with, including a massive learning curve.  
 
 **Benefits:** Best for distributing over clusters, extremely customizable, includes implementations of most algorithms
+
 **Problems:** Massive learning curve, significant overhead, terrible documentation, throws many non-fatal errors internally, non-trivial to test/deploy model.
+
 **Use If:** You need to distribute over a cluster, need a massive level of customizability, 
 
 **Libraries:** RLlib, Gymnasium, pygame (optional, needed for gridworld), pytorch or tensorflow (I use pytorch here)
 
-This folder contains the basics necessary for training an agent using RLlib on both premade and custom environments. I am still working on adding good examples on custom callbacks (changes to the training process) and custom models.
+This folder contains the basics necessary for training an agent using RLlib on both premade and custom environments. Furthermore, an example custom model (and how to use it for training) are provided. 
 
 ### StableBaseline
-StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it can be challenging to create a fully custom model, and it provides less overall control compared to RLlib. If you just want to train a model on your custom environment, then this is likely the framework for you. 
+StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it is challenging to create a fully custom model (though some significant customization is possible), and it provides less overall control compared to RLlib. If you just want to train a model on your custom environment, then this is likely the framework for you. 
 
-**Benefits:** Easy to use, lightweight, includes many of the more popular algorithms. Very easy to test/deploy
+**Benefits:** Easy to use, lightweight, decent documentation, includes many of the more popular algorithms. Very easy to test/deploy
+
 **Problems:** Not as much control as RLlib, harder to distribute over clusters
+
 **Use If:** You want a simple yet powerful out of the box solution that is extremely easy to test/deploy
 
 **Libraries:** StableBaseline, Gymnasium, pygame (optional, needed for gridworld)
