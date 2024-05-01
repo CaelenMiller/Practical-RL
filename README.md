@@ -21,22 +21,25 @@ This folder contains the basics necessary for training an agent using RLlib on b
 
 **Problems:** Massive learning curve, significant overhead, terrible documentation, throws many non-fatal errors internally, non-trivial to test/deploy model, occasional problematic issue under the hood.
 
-**Use If:** You need to distribute over a cluster, need a massive level of customizability, or are a masochist
+**Use If:** You need to distribute over a cluster, run multiple instances at once, need a massive level of customizability, or are a masochist
 
 **Libraries:** RLlib, Gymnasium, pygame (optional, needed for gridworld), pytorch or tensorflow (I use pytorch here)
 
 
 ### StableBaseline
-StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it is challenging to create a fully custom model (though some significant customization is possible, such as the usage of CNN's), and it provides less overall control compared to RLlib. If you just want to train a model on your custom environment, then this is likely the framework for you. 
+StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it is challenging to create a fully custom model (though some significant customization is possible, such as the usage of CNN's), and it provides less overall control compared to RLlib. It is still possible to distribute over a cluster, but unlike with RLlib that is not the default behavior. If you just want to train a model on your custom environment, then this is likely the framework for you. 
 
 This folder contains the basics for training a policy on a custom environment. 
 
 **Benefits:** Easy to use, lightweight, decent documentation, includes many of the more popular algorithms. Very easy to test/deploy
 
-**Problems:** Not as much control as RLlib, harder to distribute over clusters
+**Problems:** Not as much control as RLlib
 
 **Use If:** You want a simple yet powerful out of the box solution that is extremely easy to test/deploy
 
 **Libraries:** StableBaseline, Gymnasium, pygame (optional, needed for gridworld)
 
 
+## Resources
+
+https://andyljones.com/posts/rl-debugging.html - An immensely useful guide on debugging RL applications. This document can easily save you months on the RL learning curve if you read it over carefully. 

@@ -5,10 +5,7 @@ from ray import tune
 from EnvironmentGridworld import CustomGridWorldEnv
 from CustomModel import CustomModel
 
-'''This file demonstrates how to use a custom model and custom environment together with RLlib'''
-
-#Register your custom model
-ModelCatalog.register_custom_model("my_model", CustomModel)
+'''This file demonstrates how to use a custom environment with RLlib'''
 
 #Register your custom environment
 tune.register_env("Grid-v0", CustomGridWorldEnv)
@@ -18,30 +15,9 @@ algo = (
     PPOConfig()
     .rollouts(num_rollout_workers=1)
     .resources(num_gpus=0)
-    .environment(env="Grid-v0", render_env=True) #As of april 2023, rendering envs is no longer supported. Workaround is to call render in step()
+    .environment(env="Grid-v0", render_env=True) #As of april 2023, rendering envs through configs is not supported. Workaround is to call render in step()
     .build()
 )
-
-#Example of custom model initialization - Beware that this is currently dramatically worse than default models.
-#I'm looking into what's causing this issue. 
-# algo = (
-#         PPOConfig()
-#         .environment(env="Grid-v0")
-#         .resources(num_gpus=1)
-#         .training(lr=0.01, grad_clip=30.0, 
-#                   model={
-#                         "custom_model": "my_model",
-#                         "custom_model_config": {
-#                             "obs_size": 12*12+2,
-#                             "action_size": 5,
-#                             "num_layers": 6,
-#                             },
-#                         }
-#         )
-#         .build()
-#         )
- 
-
 
 custom_checkpoint_dir = "./Checkpoints/GridworldModel"
 

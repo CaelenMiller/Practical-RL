@@ -1,3 +1,4 @@
+
 from ray.rllib.models.torch.torch_modelv2 import TorchModelV2
 from ray.rllib.utils.annotations import override
 from torch import nn
@@ -13,32 +14,48 @@ class CustomModel(TorchModelV2, nn.Module):
         self.obs_size = kwargs["obs_size"]
         self.action_size = kwargs["action_size"]
         self.layers = kwargs["num_layers"]
+        self.hidden_dim = kwargs["hidden_dim"]
 
-        self.input_layer = nn.Linear(self.obs_size, 256)
+        self.actor_input = nn.Linear(self.obs_size, self.hidden_dim)
 
-        self.net = nn.Sequential(
+        #Actor critic methods such as PPO or SAC need both to function
+        self.actor = nn.Sequential(
             *[nn.Sequential(
-                nn.Linear(256, 256),
+                nn.Linear(self.hidden_dim, self.hidden_dim),
                 nn.LeakyReLU(),
-                nn.BatchNorm1d(256)
-            ) for i in range(self.layers)]
+                nn.BatchNorm1d(self.hidden_dim)
+            ) for _ in range(self.layers)]
+        )
+        self.actor_head = nn.Linear(self.hidden_dim, self.action_size)
+
+
+        self.critic_input = nn.Linear(self.obs_size, self.hidden_dim)
+
+        self.critic = nn.Sequential(
+            *[nn.Sequential(
+                nn.Linear(self.hidden_dim, self.hidden_dim),
+                nn.LeakyReLU(),
+                nn.BatchNorm1d(self.hidden_dim)
+            ) for _ in range(self.layers)]
         )
 
         # Output layer
-        self.output_layer = nn.Linear(256, self.action_size)
+        self.critic_head = nn.Linear(self.hidden_dim, 1)
 
     @override(TorchModelV2)
     def forward(self, input_dict, state, seq_lens):
         # Assuming the input dict contains 'obs' key with the observation
         obs = input_dict["obs"]
 
-        self._features =  self.net(self.input_layer(obs))
+        self.value = self.critic_head(self.critic(self.critic_input(obs)))
 
-        self._output = self.output_layer(self._features)
+        self.action = self.actor_head(self.actor(self.actor_input(obs)))
 
-        return self._output, state
+        return self.action, state
     
     @override(TorchModelV2)
     def value_function(self):
-        assert self._features is not None, "must call forward first!"
-        return torch.reshape(torch.mean(self._features, -1), [-1])
+        assert self.value is not None, "must call forward first!"
+        return torch.reshape(self.value, [-1]) #reshape into a single dimension
+
+    
