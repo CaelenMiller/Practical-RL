@@ -7,8 +7,8 @@ from CustomModel import CustomModel
 '''This file demonstrates how to train a custom model. Additional functionality present in [Train.py] is also used
     in order to better show the training process and its results. When making custom models, I would recommend
     comparing their effectiveness to the default models in order to ensure that they actually provide better results.
-    Note that a microscopic network is needed to properly learn for simple problems. Anything too long will simply not 
-    learn well.'''
+    Note that a microscopic network is needed to properly learn for simple problems like cartpole. Anything too long 
+    will simply not learn well.'''
 
 # A simple function for data visualization
 def plot(name, x_lab, y_lab, data):
@@ -23,7 +23,8 @@ def plot(name, x_lab, y_lab, data):
 ModelCatalog.register_custom_model("my_model", CustomModel)
 
 # Initialization of the algorithm. Workers are instances of your environment, lots of other variables you can set here.
-# the model dictionary passed to "training()" contains the **kwargs that the model will use.
+# the model dictionary passed to "training()" contains the **kwargs that the model will use. Note how tiny the network
+# used here is (policy only has 1 hidden layer). Anything too large will struggle tremendously to learn.
 algo = (
         PPOConfig()
         .environment(env='CartPole-v1')
