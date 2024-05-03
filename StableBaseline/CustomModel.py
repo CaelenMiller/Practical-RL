@@ -4,12 +4,17 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.policies import ActorCriticPolicy
 import gymnasium as gym
 
-'''A simple illustration of how to make a custom model for use with Stable Baseline. This 
-    implementation only includes BaseFeatureExtractor, or in other words the first half of the network.'''
+'''A simple illustration of how to make a custom model for use with Stable Baseline. Note that for 
+    PPO, there are several key parts of the network. On a macro scale, you have the actor and the critic.
+    In this case, both of these draw from the same feature extraction, which is defined as 
+    CustomFeatureExtraction. Note that the heads of both the actor and critic (feature -> action/value)
+    are modified using the [net_arch] variable in [policy_kwargs]. You can edit the policy and critic
+    more specifically by redifining the overarching model class used for PPO, but that is extremely tricky
+    and significantly more time consuming. '''
 
-class CustomNetwork(BaseFeaturesExtractor):
+class CustomFeatureExtraction(BaseFeaturesExtractor):
     def __init__(self, observation_space, hidden_dim=16, action_dim=2):
-        super(CustomNetwork, self).__init__(observation_space, hidden_dim)
+        super(CustomFeatureExtraction, self).__init__(observation_space, hidden_dim)
         # Define your network structure here
         self.net = nn.Sequential(
             nn.Linear(observation_space.shape[0], hidden_dim),
@@ -22,21 +27,22 @@ class CustomNetwork(BaseFeaturesExtractor):
     
 
     
-
 # Create the environment
 env = gym.make('CartPole-v1')
 
 # Create the policy with the custom network
 policy_kwargs = dict(
-    features_extractor_class=CustomNetwork,
-    features_extractor_kwargs=dict(hidden_dim=4, action_dim=4)  # Adjust dimensions according to your model
+    features_extractor_class=CustomFeatureExtraction,
+    features_extractor_kwargs=dict(hidden_dim=4, action_dim=4),
+    net_arch = dict(pi=[16], vf=[16, 16])
 )
 
 # Instantiate the agent with the custom policy
-model = PPO(ActorCriticPolicy, env, verbose=1, policy_kwargs=policy_kwargs)
+model = PPO(ActorCriticPolicy, env, verbose=1, policy_kwargs=policy_kwargs,
+            )
 
 # Train the agent
-model.learn(total_timesteps=50000)
+model.learn(total_timesteps=10000)
 
 # Test the agent
 env.close()
