@@ -5,7 +5,7 @@ from stable_baselines3.common.policies import ActorCriticPolicy
 import gymnasium as gym
 
 '''A simple illustration of how to make a custom model for use with Stable Baseline. This 
-    also includes '''
+    implementation only includes BaseFeatureExtractor, or in other words the first half of the network.'''
 
 class CustomNetwork(BaseFeaturesExtractor):
     def __init__(self, observation_space, hidden_dim=16, action_dim=2):
