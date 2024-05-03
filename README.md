@@ -21,13 +21,13 @@ This folder contains the basics necessary for training an agent using RLlib on b
 
 **Problems:** Massive learning curve, significant overhead, terrible documentation, throws many non-fatal errors internally, non-trivial to test/deploy model, occasional problematic issue under the hood.
 
-**Use If:** You need to distribute over a cluster, run multiple instances at once, need a massive level of customizability, or are a masochist
+**Use If:** You need to distribute over a cluster, run multiple instances at once, need a massive level of customizability, or are a masochist. Unless you know what you're doing, stay away from this
 
 **Libraries:** RLlib, Gymnasium, pygame (optional, needed for gridworld), pytorch or tensorflow (I use pytorch here)
 
 
 ### StableBaseline
-StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it is challenging to create a fully custom model (though some significant customization is possible, such as the usage of CNN's), and it provides less overall control compared to RLlib. It is still possible to distribute over a cluster, but unlike with RLlib that is not the default behavior. If you just want to train a model on your custom environment, then this is likely the framework for you. 
+StableBaseline 3 is a lightweight reinforcement learning framework. It works great with custom environments, with little to no overhead and extremely easy testing and deployment of models. However, it provides less overall control compared to RLlib. It is still possible to distribute over a cluster, but unlike with RLlib that is not the default behavior. If you just want to train a model on your custom environment, then this is likely the framework for you. 
 
 This folder contains the basics for training a policy on a custom environment. 
 
@@ -35,9 +35,9 @@ This folder contains the basics for training a policy on a custom environment.
 
 **Problems:** Not as much control as RLlib
 
-**Use If:** You want a simple yet powerful out of the box solution that is extremely easy to test/deploy
+**Use If:** You want a lightweight yet powerful solution that is extremely easy to test/deploy
 
-**Libraries:** StableBaseline, Gymnasium, pygame (optional, needed for gridworld)
+**Libraries:** StableBaseline, Gymnasium (NOT GYM), pygame (optional, needed for gridworld)
 
 
 ## Resources

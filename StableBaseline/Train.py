@@ -9,8 +9,8 @@ env = CustomGridWorldEnv()
 model = PPO('MlpPolicy', env, verbose=1)
 
 # Train the agent
-model.learn(total_timesteps=100000)
+model.learn(total_timesteps=500000)
 
 # Save the model
-model.save("ppo_custom_env_model")
+model.save("./Models/ppo_custom_env_model")
 

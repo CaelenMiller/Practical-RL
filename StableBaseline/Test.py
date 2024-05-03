@@ -5,12 +5,17 @@ from EnvironmentGridworld import CustomGridWorldEnv
 env = CustomGridWorldEnv()
 
 # Load the model (optional, for demonstration)
-model = PPO.load("ppo_custom_env_model", env=env)
+model = PPO.load("./Models/ppo_custom_env_model", env=env)
 
-# Test the trained agent
-obs, _ = env.reset()
-for _ in range(1000):
+# Test the agent
+obs = env.reset()[0] #outputs obs and info, only need obs
+length = 0
+for _ in range(10000):
     action, _states = model.predict(obs, deterministic=True)
-    obs, rewards, dones, truncated, info = env.step(action)
-    print(f'pos: {env.agent_position}, action: {action}')
+    obs, rewards, done, truncated, info = env.step(action)
     env.render()
+    length += 1
+    if done or truncated:
+      print(f"Episode Length: {length}")
+      obs = env.reset()[0]
+      length = 0

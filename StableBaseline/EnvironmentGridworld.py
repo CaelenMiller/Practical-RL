@@ -19,8 +19,6 @@ class CustomGridWorldEnv(gym.Env):
 
         self.gridWorld = GridWorld()
 
-        self.display = Display(self.gridWorld.grid)
-
         obs_size = self.gridWorld.shape[0] * self.gridWorld.shape[1] + 2
 
         self.action_space = spaces.Discrete(5)  # 0: up, 1: down, 2: left, 3: right, 4: stay
@@ -79,6 +77,8 @@ class CustomGridWorldEnv(gym.Env):
 
 
     def render(self, render_mode='human'):
+        if not hasattr(self, 'display'): #make sure theres a display
+            self.display = Display(self.gridWorld.grid)
         if render_mode == "human":
             self.display.render(self.gridWorld.grid, self.agent_position)
             self.display.clock.tick(self.display.FPS)
