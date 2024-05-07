@@ -13,13 +13,13 @@ import gymnasium as gym
     and significantly more time consuming. '''
 
 class CustomFeatureExtraction(BaseFeaturesExtractor):
-    def __init__(self, observation_space, hidden_dim=16, action_dim=2):
-        super(CustomFeatureExtraction, self).__init__(observation_space, hidden_dim)
+    def __init__(self, observation_space, hidden_dim= 4, feature_dim=2):
+        super(CustomFeatureExtraction, self).__init__(observation_space, feature_dim)
         # Define your network structure here
         self.net = nn.Sequential(
             nn.Linear(observation_space.shape[0], hidden_dim),
             nn.ReLU(),
-            nn.Linear(hidden_dim, action_dim),
+            nn.Linear(hidden_dim, feature_dim),
         )
 
     def forward(self, observations):
@@ -33,7 +33,7 @@ env = gym.make('CartPole-v1')
 # Create the policy with the custom network
 policy_kwargs = dict(
     features_extractor_class=CustomFeatureExtraction,
-    features_extractor_kwargs=dict(hidden_dim=4, action_dim=4),
+    features_extractor_kwargs=dict(hidden_dim=4, feature_dim=5),
     net_arch = dict(pi=[16], vf=[16, 16])
 )
 
