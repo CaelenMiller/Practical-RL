@@ -87,9 +87,9 @@ class CustomGridWorldEnv(gym.Env):
         prev_dist = self.dist
         self.dist = self.gridWorld.find_distance_to_goal(self.agent_position[1], self.agent_position[0])
         if self.dist == 0:
-            return 5
+            return 1
         else: 
-            return prev_dist - self.dist
+            return ( prev_dist - self.dist ) * 0.2
 
     def is_done(self):
         if self.gridWorld.grid[self.agent_position[1]][self.agent_position[0]] == 2:

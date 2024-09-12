@@ -16,7 +16,7 @@ class CustomFeatureExtraction(BaseFeaturesExtractor):
 
         # Defining the convolutional path
         conv_modules = []
-        current_channels = world_model_width  # Assuming initial channels equals world_model_width, adjust if different
+        current_channels = 1  # Assuming initial channels equals world_model_width, adjust if different
         for _ in range(conv_layers):
             conv_modules.append(nn.Conv3d(current_channels, current_channels * 2, kernel_size=3, stride=1, padding=1))
             conv_modules.append(nn.ReLU())

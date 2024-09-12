@@ -13,7 +13,7 @@ import gymnasium as gym
     and significantly more time consuming. '''
 
 class CustomFeatureExtraction(BaseFeaturesExtractor):
-    def __init__(self, observation_space, hidden_dim= 4, feature_dim=2):
+    def __init__(self, observation_space, hidden_dim=4, feature_dim=2):
         super(CustomFeatureExtraction, self).__init__(observation_space, feature_dim)
         # Define your network structure here
         self.net = nn.Sequential(

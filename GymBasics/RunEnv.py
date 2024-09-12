@@ -2,6 +2,7 @@ import gymnasium as gym
 from EnvironmentGridworld import CustomGridWorldEnv
 
 env = gym.make('CartPole-v1', render_mode="human")
+#env = gym.make('FrozenLake-v1', is_slippery=True, render_mode='human')
 #env = CustomGridWorldEnv()
 
 observation = env.reset()
